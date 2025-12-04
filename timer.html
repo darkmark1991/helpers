@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .page {
+        width: 100%;
+        height: 100vh;
+        background-color: #ffffe7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .circle-border {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 570px;
+        height: 570px;
+        margin-left: 20px;
+        margin-top: 20px;
+        border-radius: 100%;
+        background-color: rgb(224, 224, 224);
+         {
+           {
+            /*  background: linear-gradient(270deg, black 50%, transparent 50%),
+          linear-gradient(0deg, black 50%, lightgray 50%);  */
+          }
+        }
+      }
+      .circle {
+        width: 530px;
+        height: 530px;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffe7;
+      }
+      .countdown {
+        color: lightgray;
+      }
+      .eye-time.page {
+        background-color: green;
+        transition: background-color 1000ms ease-in-out;
+      }
+      .eye-time .circle {
+        background-color: green;
+        transition: background-color 1000ms ease-in-out;
+      }
+      .eye-time .circle-border {
+        background-color: white;
+      }
+      .eye-time .countdown {
+        color: white;
+      }
+      .stretch-time.page {
+        background-color: orange;
+        transition: background-color 1000ms ease-in-out;
+      }
+      .stretch-time .circle {
+        background-color: orange;
+        transition: background-color 1000ms ease-in-out;
+      }
+      .stretch-time .circle-border {
+        background-color: white;
+      }
+      .stretch-time .countdown {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ease-in-out page">
+      <div class="ease-in-out circle-border">
+        <div class="ease-in-out circle">
+          <span id="timer" class="font-mono ease-in-out text-7xl countdown">
+            <span
+              id="hour"
+              style="--value: 0; --digits: 2"
+              aria-live="polite"
+              aria-label="0"
+              >10</span
+            >
+            :
+            <span
+              id="minute"
+              style="--value: 0; --digits: 2"
+              aria-live="polite"
+              aria-label="0"
+              >24</span
+            >
+            :
+            <span
+              id="second"
+              style="--value: 0; --digits: 2"
+              aria-live="polite"
+              aria-label="0"
+              >59</span
+            >
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-10 right-10">
+      <a href="#" id="skip-break" class="text-gray-100">Skip Break</a>
+    </div>
+    <script>
+      const timer = document.querySelector('#timer');
+      const hourEl = timer.querySelector('#hour');
+      const minuteEl = timer.querySelector('#minute');
+      const secondEl = timer.querySelector('#second');
+
+      let eyeBreak = false;
+      let stretchBreak = false;
+      let skipBreak = false;
+      const skipBreakButton = document.querySelector('#skip-break');
+      skipBreakButton.addEventListener('click', () => {
+        skipBreak = true;
+        page.classList.remove('eye-time');
+        page.classList.remove('stretch-time');
+      });
+      setInterval(() => {
+        const now = new Date();
+        const minutes = now.getMinutes();
+        hourEl.style.setProperty('--value', now.getHours());
+        minuteEl.style.setProperty('--value', minutes);
+        secondEl.style.setProperty('--value', now.getSeconds());
+        if (!stretchBreak && !eyeBreak) {
+          if (minutes === 0) {
+            const page = document.querySelector('.page');
+            if (!skipBreak) {
+              page.classList.add('stretch-time');
+            }
+            stretchBreak = true;
+            setTimeout(() => {
+              page.classList.remove('stretch-time');
+              stretchBreak = false;
+              skipBreak = false;
+            }, 1000 * 60 * 5);
+          } else if (minutes % 20 === 0) {
+            const page = document.querySelector('.page');
+            if (!skipBreak) {
+              page.classList.add('eye-time');
+            }
+            eyeBreak = true;
+            setTimeout(() => {
+              page.classList.remove('eye-time');
+              eyeBreak = false;
+              skipBreak = false;
+            }, 1000 * 25);
+          }
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
