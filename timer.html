@@ -24,16 +24,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 570px;
-        height: 570px;
         margin-left: 20px;
         margin-top: 20px;
         border-radius: 100%;
         background-color: rgb(224, 224, 224);
       }
       .circle {
-        width: 530px;
-        height: 530px;
         border-radius: 100%;
         display: flex;
         justify-content: center;
@@ -75,9 +71,9 @@
   </head>
   <body>
     <div class="ease-in-out page">
-      <div class="ease-in-out circle-border">
-        <div class="ease-in-out circle">
-          <span id="timer" class="font-mono ease-in-out text-7xl countdown">
+      <div class="ease-in-out circle-border w-[300px] md:w-[570px]">
+        <div class="ease-in-out circle w-[260px] md:w-[530px]">
+          <span id="timer" class="font-mono ease-in-out text-4xl md:text-7xl countdown">
             <span
               id="hour"
               style="--value: 0; --digits: 2"
